@@ -1,19 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="shadow-md py-3">
-      <div className="flex items-center justify-between px-8 ph-4 max-w-7xl mx-auto">
-        <div className="flex items-center ">
+    <header className="shadow-md py-3">
+      <div className="flex items-center justify-between px-8 ph-4 px-4 sm:px-8 max-w-7xl mx-auto">
+        <Link to="/" className="flex items-center ">
           <img
             className="h-10"
             src="https://cdn.prod.website-files.com/61b9e0dd381626819c8d4f83/65e2198d48039ba6444f602b_logo%20hashtag%20-%20h.webp"
             alt="Logo Site"
           />
           <p className="text-2xl font-bold text-primary-400">AiirBnb</p>
-        </div>
+        </Link>
 
-        <div className="flex items-center border border-gray-300 pr-4 py-2 rounded-full shadow-md">
+        <Link
+          to="/"
+          className="hidden lg:flex flex items-center border border-gray-300 pr-4 py-2 rounded-full shadow-md"
+        >
           <p className="pr-4 pl-4 border-r border-r-gray-300">Qualquer Lugar</p>
           <p className="px-4 border-r border-r-gray-300">Qualquer Semana</p>
           <p className="pr-4 pl-4">Hospedes</p>
@@ -33,9 +37,12 @@ const Header = () => {
               />
             </svg>
           </div>
-        </div>
+        </Link>
 
-        <div className="flex items-center border border-gray-300 gap-1 py-2 pr-4 pl-6 rounded-full shadow-md">
+        <Link
+          to="/login"
+          className="flex items-center border border-gray-300 gap-1 py-2 pr-4 pl-6 rounded-full shadow-md"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -61,10 +68,12 @@ const Header = () => {
               clipRule="evenodd"
             />
           </svg>
-          <p className="pr-4 pl-4">Victor Matheus</p>
-        </div>
+          <p className="sm:max-w-32 max-w-20 truncate pr-4 pl-4">
+            Victor Matheus
+          </p>
+        </Link>
       </div>
-    </div>
+    </header>
   );
 };
 
