@@ -19,8 +19,6 @@ const Login = ({ user, setUser }) => {
 
         setUser(userDoc);
         setRedirect(true);
-
-        console.log(userDoc);
       } catch (error) {
         alert(`Erro ao fazer login: ${error.response.data}`);
       }

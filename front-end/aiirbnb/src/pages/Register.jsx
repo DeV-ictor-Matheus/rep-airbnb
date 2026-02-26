@@ -9,25 +9,24 @@ const Register = ({ setUser }) => {
   const [redirect, setRedirect] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evita o comportamento padrão de envio do formulário
+    e.preventDefault();
 
-    // if (email && password) {
-    //   try {
-    //     const { data: userDoc } = await axios.post("/users/login", {
-    //       email,
-    //       password,
-    //     });
+    if (email && password && name) {
+      try {
+        const { data: userDoc } = await axios.post("/users", {
+          name,
+          email,
+          password,
+        });
 
-    //     setUser(userDoc);
-    //     setRedirect(true);
-
-    //     console.log(userDoc);
-    //   } catch (error) {
-    //     alert(`Erro ao fazer login: ${error.response.data}`);
-    //   }
-    // } else {
-    //   alert("Preencha os campos de email e senha para fazer login!");
-    // }
+        setUser(userDoc);
+        setRedirect(true);
+      } catch (error) {
+        alert(`Erro ao cadastrar o usuário: ${error.response.data}`);
+      }
+    } else {
+      alert("É necessário preencher todos os campos para concluir o cadastro!");
+    }
   };
 
   if (redirect) return <Navigate to="/" />;
@@ -39,18 +38,18 @@ const Register = ({ setUser }) => {
 
         <form className="flex flex-col gap-2 w-full" onSubmit={handleSubmit}>
           <input
-            type="email"
-            className="w-full border-gray-300 px-4 py-2 rounded-full border"
-            placeholder="Digite seu e-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
             type="text"
             className="w-full border-gray-300 px-4 py-2 rounded-full border"
             placeholder="Digite seu nome"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="email"
+            className="w-full border-gray-300 px-4 py-2 rounded-full border"
+            placeholder="Digite seu e-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
