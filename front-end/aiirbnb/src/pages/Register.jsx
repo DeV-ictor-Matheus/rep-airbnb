@@ -14,6 +14,7 @@ const Register = ({ setUser }) => {
     if (email && password && name) {
       try {
         const { data: userDoc } = await axios.post("/users", {
+          //Rota para criar um novo usuário
           name,
           email,
           password,
@@ -22,7 +23,7 @@ const Register = ({ setUser }) => {
         setUser(userDoc);
         setRedirect(true);
       } catch (error) {
-        alert(`Erro ao cadastrar o usuário: ${error.response.data}`);
+        alert(`Erro ao cadastrar o usuário: ${JSON.stringify(error)}`);
       }
     } else {
       alert("É necessário preencher todos os campos para concluir o cadastro!");

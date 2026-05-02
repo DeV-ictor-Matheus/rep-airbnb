@@ -21,19 +21,17 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/profile", async (req, res) => {
-  // connectDB(); Não precisa conectar com o banco de dados, pois o token já tem as informações do usuário
+  // connectDB(); Não precisa conectar com o banco de dados, pois o token já tem as informações do usuário em cookies
   const { token } = req.cookies;
 
   if (token) {
-    try {
-      const userInfo = jwt.verify(token, JWT_SECRET_KEY);
+    jwt.verify(token, JWT_SECRET_KEY, {}, (error, userInfo) => {
+      if (error) throw error;
 
       res.json(userInfo);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+    });
   } else {
-    res.json(null);
+    res.json(null); //Se não tiver token, retorna null para o front
   }
 });
 
@@ -53,9 +51,10 @@ router.post("/", async (req, res) => {
     const { _id } = newUserDoc;
     const newUserObj = { name, email, _id };
 
-    const token = jwt.sign(newUserObj, JWT_SECRET_KEY);
-
-    res.cookie("token", token).json(newUserObj);
+    jwt.sign(newUserObj, JWT_SECRET_KEY, {}, (error, token) => {
+      if (error) throw error;
+      res.cookie("token", token).json(newUserObj);
+    });
   } catch (error) {
     res.status(500).json(error);
   }
