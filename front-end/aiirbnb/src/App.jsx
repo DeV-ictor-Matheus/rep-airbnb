@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Register from "./pages/Register";
 import Account from "./pages/Account";
+import AccProfile from "./components/AccProfile";
 
 axios.defaults.baseURL = import.meta.env.VITE_AXIOS_BASE_URL; //URL para que o axios faça as requisições para o back-end
 axios.defaults.withCredentials = true; //Permite que o axios envie cookies junto com as requisições
@@ -39,7 +40,10 @@ function App() {
           path="/login/register"
           element={<Register setUser={setUser} />}
         />
-        <Route path="/account/:subpage?" element={<Account user={user} />} />
+        <Route
+          path="/account/:subpage?"
+          element={<Account user={user} setUser={setUser} />}
+        />
       </Routes>
     </BrowserRouter>
   );
